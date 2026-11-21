@@ -1,0 +1,12 @@
+// Poem-stop entry: copies the poem in entry.txt into the grader's
+// output directory. Node 22, stdlib only, no network, no randomness —
+// both runs write the same bytes, so the entry is deterministic.
+import { copyFileSync, mkdirSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const here = dirname(fileURLToPath(import.meta.url));
+const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
+
+mkdirSync(outDir, { recursive: true });
+copyFileSync(join(here, "entry.txt"), join(outDir, "entry.txt"));
